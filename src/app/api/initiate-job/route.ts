@@ -2,10 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { scheduleJob } from "node-schedule";
 import { NextResponse } from "next/server";
 import { initiateCall } from "../../utils/twilioHelpers";
+import { env } from "@/env";
 
 export async function POST(req: Request, res: NextApiResponse) {
   const body = await req.json();
   const { id, name, description, timeStamp, contact } = body;
+  const CLOUDFLARE_API_KEY = env.CLOUDFLARE_API_KEY;
 
   console.log(`Initiating call for task: ${name}`);
 
@@ -45,7 +47,7 @@ Task Description: {${description}}
     `https://api.cloudflare.com/client/v4/accounts/00831f68e3b1784cd84f1d8abb7cc2ac/ai/run/${model}`,
     {
       headers: {
-        Authorization: "Bearer u2xgqDdZIhO0JUxXx3tfbZ3xaFZfAt-IDtuVU0ec",
+        Authorization: `Bearer ${CLOUDFLARE_API_KEY}`,
       },
       method: "POST",
       body: JSON.stringify(input),

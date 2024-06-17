@@ -16,7 +16,6 @@ const AuthCallback = () => {
         setMessage(
           "Successfully authenticated! 🎉 You can now close this tab. 😅",
         );
-        window.close();
       } catch (error) {
         setMessage("An error occurred while fetching the data.");
       }

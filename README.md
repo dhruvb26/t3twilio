@@ -1,13 +1,15 @@
 # t3twilio
 
-This is a [T3 Stack](https://create.t3.gg/) project for the Dev.to challenge.
+This is a [T3](https://create.t3.gg/) project for the [Twilio](https://dev.to/challenges/twilio) challenge on [dev.to.](https://dev.to/)
+
+![Project Logo](https://utfs.io/f/d0b7e9b5-b512-42d5-b387-133d1f18f9d2-1x5rt.png)
 
 ## What's next?
 
-- [ ] How to use unique access token ?
+- [x] How to use unique access token ?
 - [ ] Figure out how to make request
       from within Notion.
-- [ ] Integrate Twilio API functions.
+- [x] Integrate Twilio API functions.
 
 If you are not familiar with the different technologies used in this project, please refer to the respective docs.
 

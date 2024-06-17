@@ -23,7 +23,9 @@ export const createTable = pgTableCreator((name) => `t3twilio_${name}`);
 export const tokens = createTable("token", {
   bot_id: varchar("bot_id").primaryKey().notNull(),
   access_token: varchar("access_token", { length: 256 }).notNull(),
-  data: json("data").notNull(),
+  user_id: varchar("user_id", { length: 256 }).notNull(),
+  template_id: varchar("template_id", { length: 256 }).notNull(),
+  workspace_id: varchar("workspace_id", { length: 256 }).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

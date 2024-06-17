@@ -14,6 +14,9 @@ export const env = createEnv({
     OAUTH_REDIRECT_URI: z.string().url(),
     TWILIO_ACCOUNT_SID: z.string(),
     TWILIO_AUTH_TOKEN: z.string(),
+    NGROK_URL: z.string().url(),
+    CLOUDFLARE_API_KEY: z.string(),
+    CLOUDFLARE_ACCOUNT_ID: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -41,6 +44,9 @@ export const env = createEnv({
     OAUTH_REDIRECT_URI: process.env.OAUTH_REDIRECT_URI,
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
+    NGROK_URL: process.env.NGROK_URL,
+    CLOUDFLARE_API_KEY: process.env.CLOUDFLARE_API_KEY,
+    CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

@@ -35,14 +35,22 @@ export async function authCallback(code: string) {
     }
 
     const data = await response.json();
-    // console.log("🚀 ~ authCallback ~ data:", data);
+    console.log("🚀 ~ authCallback ~ data:", data);
+
+    const user_id = data.owner.user.id;
+    const bot_id = data.bot_id;
+    const access_token = data.access_token;
+    const template_id = data.duplicated_template_id;
+    const workspace_id = data.workspace_id;
 
     // * Save the access token to the database (data.access_token)
     try {
       await db.insert(tokens).values({
-        bot_id: data.bot_id,
-        access_token: data.access_token,
-        data: data,
+        bot_id,
+        access_token,
+        user_id,
+        template_id, // * also the database_id
+        workspace_id,
       });
     } catch (error) {
       console.error("Error during insert:", error);

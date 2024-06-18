@@ -2,10 +2,12 @@ import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { parse } from "querystring";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
+import { env } from "@/env";
 
 export async function POST(req: NextApiRequest) {
   const body = await parseRequestBody(req);
 
+  const apiKey = env.CLOUDFLARE_API_KEY;
   const { SpeechResult } = body;
 
   console.log("SpeechResult: ", SpeechResult);
@@ -37,7 +39,7 @@ export async function POST(req: NextApiRequest) {
     `https://api.cloudflare.com/client/v4/accounts/00831f68e3b1784cd84f1d8abb7cc2ac/ai/run/${model}`,
     {
       headers: {
-        Authorization: "Bearer u2xgqDdZIhO0JUxXx3tfbZ3xaFZfAt-IDtuVU0ec",
+        Authorization: `Bearer ${apiKey}`,
       },
       method: "POST",
       body: JSON.stringify(input),

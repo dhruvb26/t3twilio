@@ -16,8 +16,9 @@ export async function POST(req: NextApiRequest) {
     if (Digits === "1") {
       // TODO: Send in the task id to update the status
 
-      const satusUpdateResponse = await fetch("http://localhost:8080/status", {
-        method: "GET",
+      const satusUpdateResponse = await fetch("http://localhost:8080/update_status", {
+        body: JSON.stringify({id}),
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },

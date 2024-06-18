@@ -72,7 +72,7 @@ export async function POST(req: Request, res: NextApiResponse) {
     return date;
   }
 
-  const initialCallDate = parseTimeString(timeStamp);
+  const initialCallDate = parseTimeString(timeStamp).getTime();
 
   console.log(`Initial call date: ${initialCallDate}`);
 

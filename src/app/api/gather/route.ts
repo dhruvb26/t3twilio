@@ -5,14 +5,17 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: NextApiRequest) {
   const body = await parseRequestBody(req);
-
+  const { id } = req.query;
   const { Digits } = body;
+
+  console.log(`Gather response for task: ${id}`);
 
   const twiml = new VoiceResponse();
 
   if (Digits) {
     if (Digits === "1") {
-      // TODO: Update the notion database to mark the task status as Completed
+      // TODO: Send in the task id to update the status
+
       const satusUpdateResponse = await fetch("http://localhost:8080/status", {
         method: "GET",
         headers: {

@@ -10,14 +10,15 @@ const client = twilio(accountSid, authToken);
 
 export async function POST(req: Request) {
   const body = await req.json();
-  console.log(body);
-  const { contact } = body;
+
+  // * Task ID and contact number
+  const { id, contact } = body;
 
   console.log(`Initiating follow-up call for contact: ${contact}`);
 
   const twiml = new VoiceResponse();
 
-  const actionUrl = `${process.env.NGROK_URL}/api/gather`;
+  const actionUrl = `${process.env.NGROK_URL}/api/gather?id=${encodeURIComponent(id)}`;
 
   const gather = twiml.gather({
     numDigits: 1,

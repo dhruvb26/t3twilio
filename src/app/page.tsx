@@ -27,7 +27,7 @@ export default function HomePage() {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                   Never forget again
                 </h2>
-                <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                <p className="max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Our notion integration will seamlessly schedule call reminders
                   for your tasks and watch as your workspace updates itself
                   automatically.
@@ -69,16 +69,16 @@ export default function HomePage() {
               >
                 dev.to
               </Link>{" "}
+              -
               <Link
                 href="https://dev.to/challenges/twilio"
                 className="italic text-rose-600 underline underline-offset-2 hover:text-rose-900"
               >
-                Twilio challenge.
+                Twilio challenge
               </Link>
             </h2>
-            <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              Our platform is designed to help you achieve your goals and exceed
-              your expectations.
+            <p className="max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Our integration is designed to help you stay on top of your tasks.
             </p>
           </div>
           <div className="flex flex-col gap-2 min-[400px]:flex-row lg:justify-end">

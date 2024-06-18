@@ -25,7 +25,7 @@ interface initiateCallProps {
 
 export const initiateCall = async (props: initiateCallProps) => {
   try {
-    const { contact, responseText } = props;
+    const { id, contact, responseText } = props;
 
     console.log(`Initiating call for contact: ${contact}`);
 
@@ -48,7 +48,7 @@ export const initiateCall = async (props: initiateCallProps) => {
           try {
             const res = await axios.post(
               `${process.env.NGROK_URL}/api/follow-up`,
-              { contact },
+              { id, contact },
               {
                 headers: {
                   "Content-Type": "application/json",

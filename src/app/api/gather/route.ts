@@ -13,7 +13,12 @@ export async function POST(req: NextApiRequest) {
   if (Digits) {
     if (Digits === "1") {
       // TODO: Update the notion database to mark the task status as Completed
-
+      const satusUpdateResponse = await fetch("http://localhost:8080/status", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       twiml.say("Task completed. Thank you!");
     } else if (Digits === "2") {
       twiml.say("Task not completed. Complete the task as soon as possible.");

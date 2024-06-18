@@ -9,9 +9,8 @@ export async function POST(req: Request, res: NextApiResponse) {
   const { id, name, description, timeStamp, contact } = body;
   const CLOUDFLARE_API_KEY = env.CLOUDFLARE_API_KEY;
 
-  console.log(`Initiating call for task: ${name}`);
+  console.log(`Initiating job for task: ${name}`);
 
-  // TODO: Implement logic to determine when to schedule the initial call based on startDate and time
   const model = "@cf/meta/llama-2-7b-chat-int8";
 
   const input = {
@@ -22,23 +21,19 @@ export async function POST(req: Request, res: NextApiResponse) {
           "You are an assistant that will help create reminder call messages for a task.",
       },
       {
-        // TODO: Improve the prompt
         role: "user",
         content: `You are an assistant that will help create reminder call messages for a task. Please provide the reminder call message in the following format and only the message without any additional content:
+          Format:
+          Hello, this is a reminder call about [Task Name]. [Task Description]. Please make sure to complete the task.
 
-Format:
-Hello, this is a reminder call about [Task Name]. [Task Description]. Please make sure to complete the task.
+          Example input:
+          Task Name: Submit report
+          Task Description: You need to submit the financial report by end of the day.
 
-Example input:
-Task Name: Submit report
-Task Description: You need to submit the financial report by end of the day.
+          Now, generate the reminder call message.
 
-Now, generate the reminder call message.
-
-Task Name: {${name}}
-Task Description: {${description}}
-
-`,
+          Task Name: {${name}}
+          Task Description: {${description}}`,
       },
     ],
   };
@@ -79,7 +74,7 @@ Task Description: {${description}}
 
   const initialCallDate = parseTimeString(timeStamp);
 
-  console.log(initialCallDate);
+  console.log(`Initial call date: ${initialCallDate}`);
 
   scheduleJob(initialCallDate, () => {
     initiateCall(props);

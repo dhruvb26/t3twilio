@@ -40,7 +40,9 @@ export const initiateCall = async (props: initiateCallProps) => {
       .then((call) => {
         console.log(`Initial call initiated with SID: ${call.sid}`);
 
-        const followUpDate = new Date(new Date().getTime() + 500000); // !5 minutes for testing
+        const followUpDate = new Date(new Date().getTime() + 300000); // !5 minutes for testing
+
+        console.log("Follow-up call scheduled for: ", followUpDate);
 
         schedule.scheduleJob(followUpDate, async () => {
           try {

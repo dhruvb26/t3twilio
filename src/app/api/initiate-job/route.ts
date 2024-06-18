@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { scheduleJob } from "node-schedule";
 import { NextResponse } from "next/server";
-import { initiateCall } from "../../utils/twilioHelpers";
+import { initiateCall } from "../../_utils/twilioHelpers";
 import { env } from "@/env";
 
 export async function POST(req: Request, res: NextApiResponse) {

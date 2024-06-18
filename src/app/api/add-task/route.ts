@@ -9,6 +9,7 @@ export async function POST(req: NextApiRequest) {
 
   const apiKey = env.CLOUDFLARE_API_KEY;
   const { SpeechResult } = body;
+  const twiml = new VoiceResponse();
 
   console.log("SpeechResult: ", SpeechResult);
 
@@ -47,13 +48,22 @@ export async function POST(req: NextApiRequest) {
   );
   const result = await aiResponse.json();
 
-  console.log("AI Response: ", result["result"]["response"]);
+  // Extract the task details from the AI response
+  const aiText = result.result.response;
 
-  const twiml = new VoiceResponse();
+  console.log("AI Response: ", aiText);
+
+  const taskDetails = extractTaskDetails(aiText);
+
+  fetch("http://localhost:8080/add_task", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(taskDetails),
+  });
 
   twiml.say("Task added successfully. Thank you!");
-
-  // TODO: Logic to add the task to the database
 
   const response = new NextResponse(twiml.toString(), {
     headers: {
@@ -90,4 +100,26 @@ async function parseRequestBody(req: NextApiRequest) {
 
   const bodyString = new TextDecoder().decode(combined);
   return parse(bodyString);
+}
+// Helper function to extract task details from AI response
+function extractTaskDetails(aiText: any) {
+  const nameMatch = aiText.match(/name:\s*(.*)/);
+  const descriptionMatch = aiText.match(/description:\s*(.*)/);
+  const timeStampMatch = aiText.match(/timeStamp:\s*(.*)/);
+  const contactMatch = aiText.match(/Contact:\s*(.*)/);
+
+  const contact = contactMatch
+    ? contactMatch[1].trim().replace(/[\s-]/g, "")
+    : "No contact information";
+
+  return {
+    name: nameMatch ? nameMatch[1].trim() : "Unnamed Task",
+    description: descriptionMatch
+      ? descriptionMatch[1].trim()
+      : "No description provided",
+    timeStamp: timeStampMatch
+      ? timeStampMatch[1].trim()
+      : new Date().toISOString(),
+    contact: contact,
+  };
 }

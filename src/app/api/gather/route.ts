@@ -1,11 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import { parse } from "querystring";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
   const body = await parseRequestBody(req);
-  const { id } = req.query;
+  // Parse the query parameters from the request URL
+  const id = req.nextUrl.searchParams.get("id");
+
   const { Digits } = body;
 
   console.log(`Gather response for task: ${id}`);
@@ -16,13 +18,16 @@ export async function POST(req: NextApiRequest) {
     if (Digits === "1") {
       // TODO: Send in the task id to update the status
 
-      const satusUpdateResponse = await fetch("http://localhost:8080/update_status", {
-        body: JSON.stringify({id}),
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const satusUpdateResponse = await fetch(
+        "http://localhost:8080/update_status",
+        {
+          body: JSON.stringify({ id }),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
       twiml.say("Task completed. Thank you!");
     } else if (Digits === "2") {
       twiml.say("Task not completed. Complete the task as soon as possible.");
@@ -42,7 +47,7 @@ export async function POST(req: NextApiRequest) {
 }
 
 // Helper function to parse the request body
-async function parseRequestBody(req: NextApiRequest) {
+async function parseRequestBody(req: NextRequest) {
   const reader = req.body?.getReader();
   const chunks: Uint8Array[] = [];
 

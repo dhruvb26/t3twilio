@@ -47,9 +47,9 @@ The t3twilio project integrates Twilios communication capabilities, enabling use
 
 <details closed><summary>src.app._utils</summary>
 
-| File                                                                                                      | Summary                                                                                                                                                                                                                                                           |
-| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [twilioHelpers.ts](https://github.com/dhruvbansal26/t3twilio/blob/master/src/app/_utils/twilioHelpers.ts) | Facilitates automated call initiation and scheduling follow-up actions via Twilio API. Integrates with Node.js scheduler and Axios for API calls. Key features include dynamic call content and scheduled follow-up tasks based on specified contact information. |
+| File                                                                                                      | Summary                                                                                                                                                                                                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [twilioHelpers.ts](https://github.com/dhruvbansal26/t3twilio/blob/master/src/app/_utils/twilioHelpers.ts) | Facilitates automated call initiation and scheduling follow-up actions via Twilio API. Integrates with Node.js scheduler and Axios for API calls. Key features include dynamic call content and scheduled follow-up tasks based on specified contact information. Also includes helper function that handles email reminders. |
 
 </details>
 
@@ -202,8 +202,11 @@ Checkout .env.example file for API keys.
 
 ## Project Roadmap
 
-- [ ] Implement e-mail and SMS reminder capabilities.
+This is to be implemented as we progress the development of the integration.
+
+- [ ] Implement SMS & WhatsApp reminder capabilities.
 - [ ] Allow user to choose frequency of the reminder.
+- [ ] Have an end date for the reminder automation.
 
 ---
 

@@ -3,6 +3,7 @@ import { env } from "@/env";
 import twilio from "twilio";
 import schedule from "node-schedule";
 import axios from "axios";
+import sgMail from "@sendgrid/mail";
 
 const accountSid = env.TWILIO_ACCOUNT_SID;
 const authToken = env.TWILIO_AUTH_TOKEN;
@@ -14,7 +15,7 @@ interface initiateCallProps {
   description: string; // Description of task
   timeStamp: string;
   //   frequency: string; // Frequency of task (hourly, daily, weekly)
-  //   method: string; // Method of contact (call, text, email)
+  // method: string; // Method of contact (call, text, email)
   contact: string; // Contact information
   responseText: string; // Response text for the call
   //   endDate?: string; // End date of task
@@ -34,10 +35,53 @@ export const initiateCall = async (props: initiateCallProps) => {
         to: contact,
         from: "+17247506120",
       })
-      .then((call) => {
+      .then(async (call) => {
         console.log(`Initial call initiated with SID: ${call.sid}`);
 
-        const followUpDate = new Date(new Date().getTime() + 60000); // !5 minutes for testing
+        // Use AI to determine when to schedule the follow-up call
+        const model = "@cf/meta/llama-2-7b-chat-fp16";
+
+        const input = {
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are an assistant that will help me figure out how long it will take on average to complete a task.",
+            },
+            {
+              role: "user",
+              content: `You are an assistant that will return time in "ms" for a task given:
+                Example input:
+                Hello, this is a reminder call about [Task Name]. [Task Description]. Please make sure to complete the task.
+      
+                Example output: 
+                40000 (in ms)
+      
+                Now, generate the reminder call message.
+      
+                Input: {${responseText}}`,
+            },
+          ],
+        };
+        const CLOUDFLARE_API_KEY = env.CLOUDFLARE_API_KEY;
+
+        const aiResponse = await fetch(
+          `https://api.cloudflare.com/client/v4/accounts/00831f68e3b1784cd84f1d8abb7cc2ac/ai/run/${model}`,
+          {
+            headers: {
+              Authorization: `Bearer ${CLOUDFLARE_API_KEY}`,
+            },
+            method: "POST",
+            body: JSON.stringify(input),
+          },
+        );
+
+        const result = await aiResponse.json();
+        const followUpIntervalMs = parseInt(result.result.response, 10);
+
+        console.log(followUpIntervalMs);
+
+        const followUpDate = new Date(new Date().getTime() + 60000); // use the response time in ms
 
         console.log("Follow-up call scheduled for: ", followUpDate);
 
@@ -66,4 +110,28 @@ export const initiateCall = async (props: initiateCallProps) => {
   } catch (error) {
     console.error(`Error initiating call: ${error}`);
   }
+};
+
+export const initiateEmail = async (props: initiateCallProps) => {
+  sgMail.setApiKey(
+    "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",
+  );
+
+  const { contact, responseText } = props;
+
+  const msg = {
+    to: contact, // Change to your recipient
+    from: "dk.bansal0026@gmail.com", // Change to your verified sender
+    subject: "Task Reminder",
+    html: `<strong>${responseText}</strong>`,
+  };
+
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log("Email sent");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };

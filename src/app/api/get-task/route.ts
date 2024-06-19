@@ -42,17 +42,20 @@ export async function GET(req: Request) {
   const result: any = database_query.results[0]; // TODO: Shouldn't be any
   // !Getting the first task only for testing purposes
 
+  console.log(result);
+
   const id = result?.id;
   const name = result.properties.Name.title[0].plain_text;
   const description = result.properties.Description.rich_text[0].plain_text;
   const timeStamp = result.properties["Date & Time"].date.start;
   const contact = result.properties.Contact.phone_number;
+  const method = result.properties.Method.select.name;
 
   const NGROK_URL = env.NGROK_URL;
 
   fetch(`${NGROK_URL}/api/initiate-job`, {
     method: "POST",
-    body: JSON.stringify({ id, name, description, timeStamp, contact }),
+    body: JSON.stringify({ id, name, description, timeStamp, contact, method }),
     headers: {
       "Content-Type": "application/json",
     },

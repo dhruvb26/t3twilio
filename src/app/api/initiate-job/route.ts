@@ -4,37 +4,43 @@ import { scheduleJob } from "node-schedule";
 import { NextResponse } from "next/server";
 import { initiateCall } from "../../_utils/twilioHelpers";
 import { env } from "@/env";
+import { initiateEmail } from "../../_utils/twilioHelpers";
 
 export async function POST(req: Request, res: NextApiResponse) {
   const body = await req.json();
-  const { id, name, description, timeStamp, contact } = body;
+  const { id, name, description, timeStamp, contact, method } = body;
   const CLOUDFLARE_API_KEY = env.CLOUDFLARE_API_KEY;
 
   console.log(`Initiating job for task: ${name}`);
 
-  const model = "@cf/meta/llama-2-7b-chat-int8";
+  const model = "@cf/meta/llama-2-7b-chat-fp16";
 
   const input = {
     messages: [
       {
         role: "system",
         content:
-          "You are an assistant that will help create reminder call messages for a task.",
+          "You are an assistant that creates reminder call or email messages for tasks.",
       },
       {
         role: "user",
-        content: `You are an assistant that will help create reminder call messages for a task. Please provide the reminder call message in the following format and only the message without any additional content:
-          Format:
-          Hello, this is a reminder call about [Task Name]. [Task Description]. Please make sure to complete the task.
-
-          Example input:
-          Task Name: Submit report
-          Task Description: You need to submit the financial report by end of the day.
-
-          Now, generate the reminder call message.
-
-          Task Name: {${name}}
-          Task Description: {${description}}`,
+        content: `Please generate a reminder message for a task using the following format:
+  
+  Example output: 
+  Hello, this is a reminder [Method] about [Task Name]. [Task Description]. Please make sure to complete the task.
+  
+  Example input: 
+  Task Name: Submit report
+  Method: Call or Email
+  Task Description: You need to submit the financial report by end of the day.
+  
+  Now, create the reminder message with the details provided below:
+  
+  Task Name: {${name}}
+  Method: {${method}}
+  Task Description: {${description}}
+  
+  Please provide only the message without any additional generated content.`,
       },
     ],
   };
@@ -75,10 +81,16 @@ export async function POST(req: Request, res: NextApiResponse) {
 
   const initialCallDate = parseTimeString(timeStamp).getTime();
 
-  console.log(`Initial call date: ${initialCallDate}`);
-
   scheduleJob(initialCallDate, () => {
-    initiateCall(props);
+    if (method === "Call") {
+      console.log(`Initial call date: ${initialCallDate}`);
+      initiateCall(props);
+    } else if (method === "Email") {
+      console.log(`Initial email date: ${initialCallDate}`);
+      initiateEmail(props);
+    } else {
+      console.log("Invalid method");
+    }
   });
 
   return NextResponse.json({ message: "Call initiated" });

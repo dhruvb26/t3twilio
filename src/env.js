@@ -18,6 +18,7 @@ export const env = createEnv({
     CLOUDFLARE_API_KEY: z.string(),
     CLOUDFLARE_ACCOUNT_ID: z.string(),
     PYTHON_URL: z.string().url(),
+    // SENDGRID_API_KEY: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -49,6 +50,7 @@ export const env = createEnv({
     CLOUDFLARE_API_KEY: process.env.CLOUDFLARE_API_KEY,
     CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID,
     PYTHON_URL: process.env.PYTHON_URL,
+    // SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

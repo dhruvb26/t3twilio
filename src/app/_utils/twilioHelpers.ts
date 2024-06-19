@@ -113,9 +113,7 @@ export const initiateCall = async (props: initiateCallProps) => {
 };
 
 export const initiateEmail = async (props: initiateCallProps) => {
-  sgMail.setApiKey(
-    "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",
-  );
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
   const { contact, responseText } = props;
 

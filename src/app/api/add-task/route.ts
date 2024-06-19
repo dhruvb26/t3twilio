@@ -1,3 +1,4 @@
+"use server";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { parse } from "querystring";
@@ -14,7 +15,7 @@ export async function POST(req: NextApiRequest) {
   console.log("SpeechResult: ", SpeechResult);
 
   // TODO: AI api implementation to add task to the datbase
-  const model = "@cf/meta/llama-2-7b-chat-int8";
+  const model = "@cf/meta/llama-2-7b-chat-fp16";
 
   const input = {
     messages: [
@@ -28,10 +29,10 @@ export async function POST(req: NextApiRequest) {
         role: "user",
         content: `Given the following text: ${SpeechResult}. Extract the task description, date, time, and contact information. Create a sutiable name for the task as well. Output should look like:
            name: [Name of task]
-           description: [Description of task]
-           timeStamp: [Current day with time in ISO-8601 format]
+           description: [Description of task not including time and date]
+           timeStamp: [Date with time in ISO-8601 format]
            Contact: [Contact information with +1 extension code]
-            Do not include any other generated text or information. 
+          Do not include any other generated text or information. 
           `,
       },
     ],
@@ -55,7 +56,9 @@ export async function POST(req: NextApiRequest) {
 
   const taskDetails = extractTaskDetails(aiText);
 
-  fetch("http://localhost:8080/add_task", {
+  const PYTHON_URL = env.PYTHON_URL;
+
+  fetch(`${PYTHON_URL}/add_task`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

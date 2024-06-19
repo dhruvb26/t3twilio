@@ -1,7 +1,9 @@
+"use server";
 import { NextApiRequest, NextApiResponse } from "next";
 import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import { parse } from "querystring";
 import { NextRequest, NextResponse } from "next/server";
+import { env } from "@/env";
 
 export async function POST(req: NextRequest) {
   const body = await parseRequestBody(req);
@@ -18,16 +20,15 @@ export async function POST(req: NextRequest) {
     if (Digits === "1") {
       // TODO: Send in the task id to update the status
 
-      const satusUpdateResponse = await fetch(
-        "http://localhost:8080/update_status",
-        {
-          body: JSON.stringify({ id }),
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const PYTHON_URL = env.PYTHON_URL;
+
+      const satusUpdateResponse = await fetch(`${PYTHON_URL}/update_status`, {
+        body: JSON.stringify({ id }),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+      });
       twiml.say("Task completed. Thank you!");
     } else if (Digits === "2") {
       twiml.say("Task not completed. Complete the task as soon as possible.");

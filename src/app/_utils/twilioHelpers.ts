@@ -1,10 +1,7 @@
+"use server";
 import { env } from "@/env";
 import twilio from "twilio";
 import schedule from "node-schedule";
-import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
-import { Gather } from "twilio/lib/twiml/VoiceResponse";
-import { NextApiResponse } from "next";
-import { NextApiRequest } from "next";
 import axios from "axios";
 
 const accountSid = env.TWILIO_ACCOUNT_SID;
@@ -44,10 +41,12 @@ export const initiateCall = async (props: initiateCallProps) => {
 
         console.log("Follow-up call scheduled for: ", followUpDate);
 
+        const NGROK_URL = env.NGROK_URL;
+
         schedule.scheduleJob(followUpDate, async () => {
           try {
             const res = await axios.post(
-              `${process.env.NGROK_URL}/api/follow-up`,
+              `${NGROK_URL}/api/follow-up`,
               { id, contact },
               {
                 headers: {

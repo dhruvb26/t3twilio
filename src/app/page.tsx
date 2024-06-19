@@ -6,15 +6,33 @@ import Image from "next/image";
 export default function HomePage() {
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <header className="flex h-14 items-center px-4 lg:px-6">
-        <Link
-          href="#"
-          className="flex items-center justify-center"
-          prefetch={false}
-        >
-          <Image alt="" src="/another-icon.png" height={50} width={50} />
-          <span className="text-black">t3twilio</span>
-        </Link>
+      <header className="flex h-14 items-center justify-between px-4 lg:px-6">
+        <div>
+          <Link
+            href="#"
+            className="flex items-center justify-center"
+            prefetch={false}
+          >
+            <Image alt="" src="/another-icon.png" height={50} width={50} />
+            <span className="text-black">t3twilio</span>
+          </Link>
+        </div>
+        <div className="flex gap-4 sm:ml-auto sm:gap-6">
+          <Link
+            href="#"
+            className="text-xs underline-offset-4 hover:underline"
+            prefetch={false}
+          >
+            Source Code
+          </Link>
+          <Link
+            href="#"
+            className="text-xs underline-offset-4 hover:underline"
+            prefetch={false}
+          >
+            Submission
+          </Link>
+        </div>
       </header>
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
@@ -90,22 +108,6 @@ export default function HomePage() {
         <p className="text-xs text-gray-500 dark:text-gray-400">
           &copy; Made by Kanav & Dhruv.
         </p>
-        <nav className="flex gap-4 sm:ml-auto sm:gap-6">
-          <Link
-            href="#"
-            className="text-xs underline-offset-4 hover:underline"
-            prefetch={false}
-          >
-            Source Code
-          </Link>
-          <Link
-            href="#"
-            className="text-xs underline-offset-4 hover:underline"
-            prefetch={false}
-          >
-            Submission
-          </Link>
-        </nav>
       </footer>
     </div>
   );

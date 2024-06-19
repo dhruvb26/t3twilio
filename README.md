@@ -25,6 +25,12 @@ The t3twilio project integrates Twilios communication capabilities, enabling use
 
 ---
 
+## Demo
+
+(insert video)
+
+---
+
 ## Features
 
 |     | Feature           | Description                                                                                                                                                                                                                                                                 |
@@ -174,12 +180,22 @@ Checkout .env.example file for API keys.
 
 ### Usage
 
-<h4>From <code>source</code></h4>
+<h4>From <code>src</code></h4>
 
-> Run t3twilio using the command below:
+> Run t3twilio using the commands below:
 >
 > ```console
 > $ pnpm dev
+> ```
+>
+> ```console
+> $ ngrok http --domain=anemone-central-aardvark.ngrok-free.app 3000
+> ```
+
+<h4>From <code>src/server/python_backend</code></h4>
+
+> ```console
+> $ uvicorn main:app --reload --port 8080
 > ```
 
 ---

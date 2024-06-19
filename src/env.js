@@ -17,6 +17,7 @@ export const env = createEnv({
     NGROK_URL: z.string().url(),
     CLOUDFLARE_API_KEY: z.string(),
     CLOUDFLARE_ACCOUNT_ID: z.string(),
+    PYTHON_URL: z.string().url(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -47,6 +48,7 @@ export const env = createEnv({
     NGROK_URL: process.env.NGROK_URL,
     CLOUDFLARE_API_KEY: process.env.CLOUDFLARE_API_KEY,
     CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID,
+    PYTHON_URL: process.env.PYTHON_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

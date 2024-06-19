@@ -1,3 +1,4 @@
+"use server";
 import { NextApiRequest, NextApiResponse } from "next";
 import { scheduleJob } from "node-schedule";
 import { NextResponse } from "next/server";

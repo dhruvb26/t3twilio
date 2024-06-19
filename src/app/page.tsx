@@ -84,11 +84,13 @@ export default function HomePage() {
               <Link
                 href="https://dev.to/"
                 className="underline-offset-2 hover:underline"
+                target="_blank"
               >
                 dev.to
               </Link>{" "}
               -
               <Link
+                target="_blank"
                 href="https://dev.to/challenges/twilio"
                 className="italic text-rose-600 underline underline-offset-2 hover:text-rose-900"
               >

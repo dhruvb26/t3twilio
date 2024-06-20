@@ -15,7 +15,7 @@ export async function POST(req: NextApiRequest) {
   console.log("SpeechResult: ", SpeechResult);
 
   // TODO: AI api implementation to add task to the datbase
-  const model = "@cf/meta/llama-2-7b-chat-fp16";
+  const model = "@cf/meta/llama-3-8b-instruct";
 
   const input = {
     messages: [

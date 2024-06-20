@@ -39,7 +39,7 @@ export const initiateCall = async (props: initiateCallProps) => {
         console.log(`Initial call initiated with SID: ${call.sid}`);
 
         // Use AI to determine when to schedule the follow-up call
-        const model = "@cf/meta/llama-2-7b-chat-fp16";
+        const model = "@cf/mistral/mistral-7b-instruct-v0.1";
 
         const input = {
           messages: [
@@ -118,10 +118,20 @@ export const initiateEmail = async (props: initiateCallProps) => {
   const { contact, responseText } = props;
 
   const msg = {
-    to: contact, // Change to your recipient
     from: "dk.bansal0026@gmail.com", // Change to your verified sender
-    subject: "Task Reminder",
-    html: `<strong>${responseText}</strong>`,
+    templateId: "d-6374fdf7cba241d1a60a65704e6d6a73",
+    personalizations: [
+      {
+        to: [
+          {
+            email: contact,
+          },
+        ],
+        dynamic_template_data: {
+          reminder: responseText,
+        },
+      },
+    ],
   };
 
   sgMail

@@ -13,7 +13,7 @@ export async function POST(req: Request, res: NextApiResponse) {
 
   console.log(`Initiating job for task: ${name}`);
 
-  const model = "@cf/meta/llama-2-7b-chat-fp16";
+  const model = "@cf/meta/llama-3-8b-instruct";
 
   const input = {
     messages: [
@@ -26,13 +26,15 @@ export async function POST(req: Request, res: NextApiResponse) {
         role: "user",
         content: `Please generate a reminder message for a task using the following format:
   
-  Example output: 
-  Hello, this is a reminder [Method] about [Task Name]. [Task Description]. Please make sure to complete the task.
   
   Example input: 
   Task Name: Submit report
-  Method: Call or Email
+  Method: Call 
   Task Description: You need to submit the financial report by end of the day.
+
+  Example output: 
+  Hello, this is a reminder call about report. You need to submit the financial report by end of the day. Please make sure to complete the task.
+  
   
   Now, create the reminder message with the details provided below:
   
@@ -40,7 +42,7 @@ export async function POST(req: Request, res: NextApiResponse) {
   Method: {${method}}
   Task Description: {${description}}
   
-  Please provide only the message without any additional generated content.`,
+  Please provide only the message text without any additional explanation or generated content. Do not include something like "Sure, here is the reminder message for the task:"`,
       },
     ],
   };

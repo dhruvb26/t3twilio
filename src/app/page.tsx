@@ -1,31 +1,35 @@
+"use client";
 import Link from "next/link";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { JSX, SVGProps } from "react";
+import { SeparateAway } from "@/components/ui/seperate-away";
+import GradualSpacing from "@/components/ui/gradual-spacing";
 
 export default function HomePage() {
-  function ArrowDownIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  function ArrowDownIcon(
+    props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>,
+  ) {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M12 5v14" />
+        <path d="m19 12-7 7-7-7" />
+      </svg>
+    );
+  }
   return (
-    <svg
-      
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 5v14" />
-      <path d="m19 12-7 7-7-7" />
-    </svg>
-  )
-}
-  return (
-    <div className="scroll-smooth flex min-h-[100dvh] flex-col">
+    <div className="flex min-h-[100dvh] flex-col scroll-smooth">
       <header className="flex h-14 items-center justify-between px-4 lg:px-6">
         <div>
           <Link
@@ -39,7 +43,7 @@ export default function HomePage() {
         </div>
         <div className="flex gap-4 sm:ml-auto sm:gap-6">
           <Link
-            href="#"
+            href="https://github.com/dhruvbansal26/t3twilio"
             className="text-xs underline-offset-4 hover:underline"
             prefetch={false}
           >
@@ -54,8 +58,8 @@ export default function HomePage() {
           </Link>
         </div>
       </header>
-      <section className=" scroll-smooth w-full py-12 md:py-24 lg:py-32">
-        <div className=" scroll-smooth container px-4 md:px-6">
+      <section className="h-[500px] w-full scroll-smooth py-12 md:py-24 lg:py-32">
+        <div className=" container scroll-smooth px-4 md:px-6">
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
@@ -63,7 +67,7 @@ export default function HomePage() {
                   Key Features
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Never forget again
+                  t3twilio
                 </h2>
                 <p className="max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Our notion integration will seamlessly schedule call reminders
@@ -85,51 +89,81 @@ export default function HomePage() {
                   Voice-Activated Task Setup
                 </li>
               </ul>
-              <Link href="#2" className="scroll-smooth mt-8 animate-bounce" prefetch={false}>
-                  <ArrowDownIcon className="h-6 w-6" />
-            </Link>
+              <Link
+                href="#2"
+                className="mt-8 animate-bounce scroll-smooth"
+                prefetch={false}
+              >
+                {/* <ArrowDownIcon className="h-6 w-6" /> */}
+              </Link>
             </div>
-            <Image
-              src="/icon.png"
-              width="550"
-              height="310"
-              alt="Features"
-              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+            <SeparateAway
+              upper_text="Never forget"
+              lower_text="again."
+              duration={1.5}
+              hidden_opacity={0}
+              visible_opacity={1}
+              className="font-display text-center text-4xl font-bold tracking-[-0.02em] text-black dark:text-white md:text-7xl md:leading-[5rem]"
             />
           </div>
         </div>
       </section>
-      <section id="2" className="scroll-smooth w-full bg-gray-200 py-12 md:py-24 lg:py-12 ">
-        <div className="scroll-smooth container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
-          <div className="scroll-smooth space-y-6">
-            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              Have someone in your family who suffers from dementia?
-            </h2>
-            <p className="space-y-2 max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Now, you can make sure they are on top of their tasks such as taking meds on time!
-            </p>
-            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              Are you someone who starts a task and then gets distracted?
-            </h2>
-            <p className="space-y-2 max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Our AI integration calculates the time it will take you complete the task and give you a follow up call!
-            </p>
-            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              Know someone who is lazy & doesn't wanna manually add a task?
-            </h2>
-            <p className="space-y-2 max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              They can control what task to add and remove by just calling. We will do the rest!
-            </p>
-              
-            
-          </div>
-          <div className="flex flex-col gap-2 min-[400px]:flex-row lg:justify-end">
-             <div className="flex flex-col items-center justify-center h-screen gap-4">
-              <div className="text-l font-bold">Never</div>
-              <div className="text-3xl font-bold">Ever</div>
-              <div className="text-5xl font-bold">Ever</div>
-              <div className="text-7xl font-bold">Forget</div>
-              <div className="text-9xl font-bold">Again</div>
+      <section className="w-full bg-black py-12 text-white md:py-24 lg:py-32">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-12 lg:grid-cols-2">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <div className="">
+                  <GradualSpacing
+                    className="font-display text-4xl font-bold tracking-[-0.1em]  text-white dark:text-white md:text-7xl md:leading-[5rem] "
+                    text="How do we help you?"
+                  />
+                </div>
+                <p className="text-muted-foreground md:text-xl">
+                  We're here to help you stay on top of your tasks and make your
+                  life easier.
+                </p>
+              </div>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold">
+                    {" "}
+                    Have someone in your family who suffers from dementia?
+                  </h3>
+                  <p className="text-muted-foreground md:text-lg">
+                    Now, you can make sure they are on top of their tasks such
+                    as taking meds on time!
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold">
+                    Are you someone who starts a task and then gets distracted?
+                  </h3>
+                  <p className="text-muted-foreground md:text-lg">
+                    Our AI integration calculates the time it will take you
+                    complete the task and give you a follow up call!
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold">
+                    Know someone who is lazy & doesn't wanna manually add a
+                    task?
+                  </h3>
+                  <p className="text-muted-foreground md:text-lg">
+                    They can control what task to add and remove by just
+                    calling. We will do the rest!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/icon.png"
+                width="550"
+                height="550"
+                alt="Hero"
+                className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
+              />
             </div>
           </div>
         </div>
@@ -160,11 +194,15 @@ export default function HomePage() {
             </p>
           </div>
           <div className="flex flex-col gap-2 min-[400px]:flex-row lg:justify-end">
-            <Button>Watch Demo</Button>
+            <Button>
+              <Link href="https://youtu.be/ouK9KJt6ai8" prefetch={false}>
+                Watch Demo
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
-      <footer className="flex w-full shrink-0 flex-col bg-gray-200 items-center gap-2 border-t px-4 py-6 sm:flex-row md:px-6">
+      <footer className="flex w-full shrink-0 flex-col items-center gap-2 bg-white px-4 py-6 sm:flex-row md:px-6">
         <p className="text-xs text-gray-500 dark:text-gray-400">
           &copy; Made by Kanav & Dhruv.
         </p>

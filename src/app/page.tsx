@@ -45,12 +45,14 @@ export default function HomePage() {
           <Link
             href="https://github.com/dhruvbansal26/t3twilio"
             className="text-xs underline-offset-4 hover:underline"
+            target="_undefined"
             prefetch={false}
           >
             Source Code
           </Link>
           <Link
-            href="#"
+            href="https://dev.to/kanav_gupta/t3twilio-never-forget-again-20bl"
+            target="_undefined"
             className="text-xs underline-offset-4 hover:underline"
             prefetch={false}
           >

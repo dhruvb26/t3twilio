@@ -27,7 +27,7 @@ The t3twilio project integrates Twilios communication capabilities, enabling use
 
 ## Demo
 
-[![Watch the video](https://img.youtube.com/vi/ouK9KJt6ai8/0.jpg)](https://youtu.be/ouK9KJt6ai8)
+https://github.com/dhruvbansal26/t3twilio/assets/108138649/14f10e92-3757-4cac-a1fe-3ec4859d224e
 
 ---
 
